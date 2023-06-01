@@ -20,6 +20,10 @@ const GOOGLE_MAPS_API_KEY = 'AIzaSyDbenMSdy2YMf5GAQxlCIqwUA-O6wbeimE';
 // Store the active routes and their associated socket IDs
 const activeRoutes = {};
 
+app.get("/", (req, res) => {
+  res.send("<h1> Working Fine</h1>")
+});
+
 app.get('/directions', async (req, res) => {
   const { origin, destination } = req.query;
   const directionsAPI = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${GOOGLE_MAPS_API_KEY}`;
