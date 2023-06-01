@@ -39,7 +39,6 @@ app.get('/directions', async (req, res) => {
     if (isEmergency) {
       // Get the socket IDs of users on the same route
       const socketIds = activeRoutes[`${origin}_${destination}`];
-      io.emit('emergency', { origin, destination });
 
       if (socketIds) {
         // Emit an emergency event to users on the same route
