@@ -21,7 +21,7 @@ const GOOGLE_MAPS_API_KEY = 'AIzaSyDbenMSdy2YMf5GAQxlCIqwUA-O6wbeimE';
 const activeRoutes = {};
 
 app.get("/", (req, res) => {
-  res.send("<h1> Working Fine</h1>")
+  res.send("<h1> Go to /directions</h1>")
 });
 
 app.get('/directions', async (req, res) => {
