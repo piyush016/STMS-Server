@@ -16,7 +16,7 @@ const io = socketIO(server, {
   },
 });
 
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY || "AIzaSyDbenMSdy2YMf5GAQxlCIqwUA";
 
 // Store the active routes and their associated socket IDs
 const activeRoutes = {};
