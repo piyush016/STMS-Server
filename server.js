@@ -10,7 +10,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'https://roaring-gelato-152a0b.netlify.app/', // Replace with your frontend origin
+    origin: 'https://roaring-gelato-152a0b.netlify.app/maps', // Replace with your frontend origin
     methods: ['GET', 'POST'],
   },
 });
