@@ -3,14 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
-
+const BASE_URL = process.env.BASE_URL
 const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:8080', // Replace with your frontend origin
+    origin: `${BASE_URL}`, // Replace with your frontend origin
     methods: ['GET', 'POST'],
   },
 });
