@@ -10,7 +10,7 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: 'https://roaring-gelato-152a0b.netlify.app/maps', // Replace with your frontend origin
+    origin: 'http://localhost:8080', // Replace with your frontend origin
     methods: ['GET', 'POST'],
   },
 });
@@ -39,6 +39,10 @@ app.get('/directions', async (req, res) => {
       // Get the socket IDs of users on the same route
       const socketIds = activeRoutes[`${origin}_${destination}`];
       io.emit('emergency', { origin, destination });
+
+      console.log('Emergency Vehicle Information:');
+      console.log('Origin:', origin);
+      console.log('Destination:', destination);
       
       if (socketIds) {
         // Emit an emergency event to users on the same route
@@ -52,6 +56,7 @@ app.get('/directions', async (req, res) => {
     res.status(500).json({ error: 'Error fetching directions' });
   }
 });
+
 
 io.on('connection', (socket) => {
   console.log('A user connected');
