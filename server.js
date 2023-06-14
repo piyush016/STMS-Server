@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
-const BASE_URL = process.env.BASE_URL
+const BASE_URL = 'https://roaring-gelato-152a0b.netlify.app/';
 const app = express();
 app.use(cors());
 
@@ -88,5 +88,5 @@ io.on('connection', (socket) => {
 
 const port = 3001;
 server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port} on ${BASE_URL}`);
 });
