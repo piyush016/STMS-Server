@@ -3,17 +3,18 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
-const BASE_URL = 'https://roaring-gelato-152a0b.netlify.app/';
+
 const app = express();
 app.use(cors());
 
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: `${BASE_URL}`, // Replace with your frontend origin
+    origin: "https://roaring-gelato-152a0b.netlify.app/",
     methods: ['GET', 'POST'],
   },
 });
+
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyDbenMSdy2YMf5GAQxlCIqwUA-O6wbeimE';
 
@@ -86,7 +87,6 @@ io.on('connection', (socket) => {
   });
 });
 
-const port = 3001;
-server.listen(port, () => {
-  console.log(`Server is running on port ${port} on ${BASE_URL}`);
+server.listen(() => {
+  console.log(`Server is running.`);
 });
