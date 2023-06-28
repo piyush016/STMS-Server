@@ -1,32 +1,28 @@
-const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIO = require('socket.io');
+const axios = require('axios');
 
 const app = express();
+
 app.use(cors());
 
 const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: "https://roaring-gelato-152a0b.netlify.app/",
+    origin: '*', // Replace with your frontend origin
     methods: ['GET', 'POST'],
   },
 });
-
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyDbenMSdy2YMf5GAQxlCIqwUA-O6wbeimE';
 
 // Store the active routes and their associated socket IDs
 const activeRoutes = {};
 
-app.get("/", (req, res) => {
-  res.send("<h1> Go to /directions</h1>")
-});
-
 app.get('/directions', async (req, res) => {
-  const { origin, destination } = req.query;
+  const { origin, destination, isEmergency } = req.query;
   const directionsAPI = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${GOOGLE_MAPS_API_KEY}`;
 
   try {
@@ -34,9 +30,7 @@ app.get('/directions', async (req, res) => {
     const data = response.data;
     res.json(data);
 
-    const isEmergency = req.query.isEmergency === 'true';
-
-    if (isEmergency) {
+    if (isEmergency === 'true') {
       // Get the socket IDs of users on the same route
       const socketIds = activeRoutes[`${origin}_${destination}`];
       io.emit('emergency', { origin, destination });
@@ -87,8 +81,7 @@ io.on('connection', (socket) => {
   });
 });
 
-const port = process.env.PORT || 3001;
-
+const port = process.env.PORT || 3000;
 server.listen(port, () => {
-  console.log(`Server is running on port ${port}.`);
+  console.log(`Server is running on port ${port}`);
 });
